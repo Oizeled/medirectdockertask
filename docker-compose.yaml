@@ -87,13 +87,17 @@ x-airflow-common:
 
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    # image: jenkins/jenkins:lts
     container_name: jenkins
+    build:
+      context: .
+      dockerfile: DockerFile
     ports:
       - 8088:8080
       - 50000:50000
     volumes:
       - ./jenkins_home:/var/jenkins_home
+      - ./dags:/var/airflow_dags
   postgres:
     image: postgres:13
     environment:
